@@ -6,5 +6,5 @@ export const hasAllSameCharacters = (stringValue: string): boolean => {
 }
 
 export const getOnlyDigits = (stringValue: string): string => {
-    return stringValue.replace(/[.-]/g, EMPTY);
+    return stringValue.replace(/[\.\-]/g, EMPTY);
 }

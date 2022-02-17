@@ -27,7 +27,7 @@ export default class CPF {
         return this.verifyCPF(cpf);
     }
 
-    private hasValidLength(cpf: string) {
+    private hasValidLength(cpf: string): boolean {
         return cpf.length === this.CPF_LENGTH;
     }
 
@@ -58,7 +58,7 @@ export default class CPF {
         return (rest < 2) ? 0 : this.CPF_LENGTH - rest;
     }
 
-    private hasVerifierDigitValid(cpf: string, verifier: string) {
+    private hasVerifierDigitValid(cpf: string, verifier: string): boolean {
         return this.getVerifierDigit(cpf) === verifier;
     }
 
