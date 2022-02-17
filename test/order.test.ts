@@ -1,30 +1,24 @@
 import Coupon from '../src/coupon';
 import Item from '../src/item'
 import Order from '../src/order'
-import OrderItem from '../src/order-item';
 
 test("Shouldn't make an order with invalid CPF", () => {
-    const fakeItem = new Item("any_description", 0);
-    const fakeOrderItem = new OrderItem(fakeItem, 1);
-    expect(() => new Order("invalid_cpf", [fakeOrderItem])).toThrow('Invalid CPF')
+    expect(() => new Order('invalid_cpf')).toThrow('Invalid CPF')
 })
 
 test("Should make an order with 3 items", () => {
-    const orderItems = [
-        new OrderItem(new Item('any_description', 50), 1),
-        new OrderItem(new Item('any_description', 50), 1),
-        new OrderItem(new Item('any_description', 50), 1)
-    ]
-    const fakeOrder = new Order('11144477735', orderItems);
+    const fakeOrder = new Order('11144477735');
+    fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), 1);
+    fakeOrder.addItem(new Item(2, 'any_category', 'any_description', 50), 1);
+    fakeOrder.addItem(new Item(3, 'any_category', 'any_description', 50), 1);
     expect(fakeOrder.orderItems.length).toBe(3)
+    expect(fakeOrder.getTotal()).toBe(150);
 })
 
 test("Should make an order with coupon", () => {
-    const orderItems = [
-        new OrderItem(new Item('any_description', 50), 1),
-        new OrderItem(new Item('any_description', 50), 1),
-        new OrderItem(new Item('any_description', 50), 1)
-    ]
-    const fakeOrder = new Order('11144477735', orderItems, new Coupon('any_name', 5));
-    expect(fakeOrder.total).toBe(142.5)
+    const fakeOrder = new Order('11144477735', new Coupon('any_name', 5));
+    fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), 1);
+    fakeOrder.addItem(new Item(2, 'any_category', 'any_description', 50), 1);
+    fakeOrder.addItem(new Item(3, 'any_category', 'any_description', 50), 1);
+    expect(fakeOrder.getTotal()).toBe(142.5)
 })

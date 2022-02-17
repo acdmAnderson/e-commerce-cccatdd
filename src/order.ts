@@ -1,5 +1,6 @@
 import Coupon from "./coupon";
 import CPF from "./cpf";
+import Item from "./item";
 import OrderItem from "./order-item";
 
 export default class Order {
@@ -10,20 +11,23 @@ export default class Order {
 
     private readonly coupon: Coupon | undefined;
 
-    readonly total: number;
 
-    constructor(cpf: string, orderItems: OrderItem[], coupon: Coupon | undefined = undefined) {
+    constructor(cpf: string, coupon: Coupon | undefined = undefined) {
         this.cpf = new CPF(cpf);
-        this.orderItems = orderItems;
-        this.total = this.calculateTotal(orderItems);
-        if (coupon) this.total -= this.total * (coupon.percentage / 100);
+        this.orderItems = [];
+        this.coupon = coupon;
     }
 
-    private calculateTotal(orderItems: OrderItem[]): number {
+    addItem(item: Item, quantity: number): void {
+        this.orderItems.push(new OrderItem(item.idItem, item.price, quantity));
+    }
+
+    getTotal(): number {
         let total = 0;
-        for(const orderItem of orderItems) {
-            total += orderItem.item.price * orderItem.quantity;
+        for (const orderItem of this.orderItems) {
+            total += orderItem.getTotal();
         }
-        return total;
+        if (this.coupon) total -= total * (this.coupon.percentage / 100);
+        return total
     }
 }
