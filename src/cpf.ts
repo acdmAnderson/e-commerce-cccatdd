@@ -1,3 +1,4 @@
+import CPFError from './errors/cpf.error';
 import { getOnlyDigits, hasAllSameCharacters } from './string.helper'
 
 export default class CPF {
@@ -11,7 +12,7 @@ export default class CPF {
     private readonly value: string;
 
     constructor(cpf: string) {
-        if (!this.validate(cpf)) throw new Error('Invalid CPF');
+        if (!this.validate(cpf)) throw new CPFError(cpf);
         this.value = cpf;
     }
 

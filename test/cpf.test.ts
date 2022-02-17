@@ -1,48 +1,49 @@
 import CPF from "../src/cpf";
+import CPFError from "../src/errors/cpf.error";
 import * as StringHelper from '../src/string.helper'
 
 test('Should return false when CPF is null', () => {
     const fakeCpf: any = null;
-    expect(() => new CPF(fakeCpf)).toThrow('Invalid CPF');
+    expect(() => new CPF(fakeCpf)).toThrow(new CPFError(fakeCpf));
 })
 
 test('Should return false when CPF is undefined', () => {
     const fakeCpf: any = undefined;
-    expect(() => new CPF(fakeCpf)).toThrow('Invalid CPF');
+    expect(() => new CPF(fakeCpf)).toThrow(new CPFError(fakeCpf));
 })
 
 test('Should return false when CPF is NaN', () => {
     const fakeCpf: any = NaN;
-    expect(() => new CPF(fakeCpf)).toThrow('Invalid CPF');
+    expect(() => new CPF(fakeCpf)).toThrow(new CPFError(fakeCpf));
 })
 
 test('Should return false when CPF is empty string', () => {
-    expect(() => new CPF('')).toThrow('Invalid CPF');
+    expect(() => new CPF('')).toThrow(new CPFError(''));
 })
 
 test('Should return false when CPF is Zero', () => {
     const fakeCpf: any = 0;
-    expect(() => new CPF(fakeCpf)).toThrow('Invalid CPF');
+    expect(() => new CPF(fakeCpf)).toThrow(new CPFError(fakeCpf));
 })
 
 test('Should return false when CPF is false', () => {
     const fakeCpf: any = false;
-    expect(() => new CPF(fakeCpf)).toThrow('Invalid CPF');
+    expect(() => new CPF(fakeCpf)).toThrow(new CPFError(fakeCpf));
 })
 
 test('Should return false when CPF has less than 11 characters', () => {
     const invalidCPF = '00000';
-    expect(() => new CPF(invalidCPF)).toThrow('Invalid CPF');
+    expect(() => new CPF(invalidCPF)).toThrow(new CPFError(invalidCPF));
 })
 
 test('Should return false when CPF has more than 14 characters', () => {
     const invalidCPF = '000000000000000';
-    expect(() => new CPF(invalidCPF)).toThrow('Invalid CPF');
+    expect(() => new CPF(invalidCPF)).toThrow(new CPFError(invalidCPF));
 })
 
 test('Should return false when CPF has all same characters', () => {
     const invalidCPF = '00000000000';
-    expect(() => new CPF(invalidCPF)).toThrow('Invalid CPF');
+    expect(() => new CPF(invalidCPF)).toThrow(new CPFError(invalidCPF));
 })
 
 test('Should return true when CPF is valid', () => {
@@ -59,17 +60,17 @@ test('Should return true when CPF has valid special characters', () => {
 
 test('Should return false when CPF has only first digit valid', () => {
     const invalidCPF = '111.444.777-30';
-    expect(() => new CPF(invalidCPF)).toThrow('Invalid CPF');
+    expect(() => new CPF(invalidCPF)).toThrow(new CPFError(invalidCPF));
 })
 
 test('Should return false when CPF has only second digit valid', () => {
     const invalidCPF = '111.444.777-05';
-    expect(() => new CPF(invalidCPF)).toThrow('Invalid CPF');
+    expect(() => new CPF(invalidCPF)).toThrow(new CPFError(invalidCPF));
 })
 
 test('Should return false when CPF has only special characters', () => {
     const invalidCPF = '!@#$%ˆ&*()*__';
-    expect(() => new CPF(invalidCPF)).toThrow('Invalid CPF');
+    expect(() => new CPF(invalidCPF)).toThrow(new CPFError(invalidCPF));
 })
 
 test('Should call StringHelper.getOnlyDigits with correct params', () => {
