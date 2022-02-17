@@ -1,3 +1,4 @@
+import Coupon from '../src/coupon';
 import Item from '../src/item'
 import Order from '../src/order'
 import OrderItem from '../src/order-item';
@@ -16,4 +17,14 @@ test("Should make an order with 3 items", () => {
     ]
     const fakeOrder = new Order('11144477735', orderItems);
     expect(fakeOrder.orderItems.length).toBe(3)
+})
+
+test("Should make an order with coupon", () => {
+    const orderItems = [
+        new OrderItem(new Item('any_description', 50), 1),
+        new OrderItem(new Item('any_description', 50), 1),
+        new OrderItem(new Item('any_description', 50), 1)
+    ]
+    const fakeOrder = new Order('11144477735', orderItems, new Coupon('any_name', 5));
+    expect(fakeOrder.total).toBe(142.5)
 })
