@@ -1,17 +1,14 @@
 import CPF from "./cpf";
-import Item from "./item";
+import OrderItem from "./order-item";
 
 export default class Order {
 
     readonly cpf: CPF;
 
-    readonly items: Item[];
+    readonly orderItems: OrderItem[];
 
-    readonly quantity: number;
-
-    constructor(cpf: string, items: Item[], quantity: number) {
+    constructor(cpf: string, orderItems: OrderItem[]) {
         this.cpf = new CPF(cpf);
-        this.items = items;
-        this.quantity = quantity;
+        this.orderItems = orderItems;
     }
 }
