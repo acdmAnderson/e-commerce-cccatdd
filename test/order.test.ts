@@ -16,9 +16,19 @@ test("Should make an order with 3 items", () => {
 })
 
 test("Should make an order with coupon", () => {
-    const fakeOrder = new Order('11144477735', new Coupon('any_name', 5));
+    const date = new Date();
+    date.setHours(date.getHours() + 1);
+    const fakeOrder = new Order('11144477735', new Coupon('any_name', 5, date));
     fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), 1);
     fakeOrder.addItem(new Item(2, 'any_category', 'any_description', 50), 1);
     fakeOrder.addItem(new Item(3, 'any_category', 'any_description', 50), 1);
     expect(fakeOrder.getTotal()).toBe(142.5)
+})
+
+test("Shouldn't apply expired coupon", () => {
+    const fakeOrder = new Order('11144477735', new Coupon('any_name', 5, new Date(2021, 3, 17, 23, 59, 59)));
+    fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), 1);
+    fakeOrder.addItem(new Item(2, 'any_category', 'any_description', 50), 1);
+    fakeOrder.addItem(new Item(3, 'any_category', 'any_description', 50), 1);
+    expect(fakeOrder.getTotal()).toBe(150)
 })
