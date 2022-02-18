@@ -15,11 +15,7 @@ export default class Order {
     constructor(cpf: string, coupon: Coupon | undefined = undefined) {
         this.cpf = new CPF(cpf);
         this.orderItems = [];
-        if (coupon) {
-            if (coupon.expiresIn.getTime() >= new Date().getTime()) {
-                this.coupon = coupon;
-            }
-        }
+        this.coupon = coupon;
     }
 
     addItem(item: Item, quantity: number): void {

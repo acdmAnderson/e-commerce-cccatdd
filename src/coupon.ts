@@ -8,7 +8,11 @@ export default class Coupon {
 
     constructor(name: string, percentage: number, expiresIn: Date) {
         this.name = name;
-        this.percentage = percentage;
         this.expiresIn = expiresIn;
+        this.percentage = this.alreadyExpired(expiresIn) ? 0 : percentage;
+    }
+
+    private alreadyExpired(expiresIn: Date): boolean {
+        return new Date().getTime() >= expiresIn.getTime();
     }
 }
