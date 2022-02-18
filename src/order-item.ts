@@ -1,5 +1,3 @@
-import Item from "./item";
-
 export default class OrderItem {
 
     readonly idItem: number;

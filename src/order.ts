@@ -1,7 +1,7 @@
-import Coupon from "./coupon";
-import CPF from "./cpf";
-import Item from "./item";
-import OrderItem from "./order-item";
+import Coupon from './coupon';
+import CPF from './cpf';
+import Item from './item';
+import OrderItem from './order-item';
 
 export default class Order {
 

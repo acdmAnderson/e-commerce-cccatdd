@@ -1,5 +1,5 @@
-import CPF from "../src/cpf";
-import CPFError from "../src/errors/cpf.error";
+import CPF from '../src/cpf';
+import CPFError from '../src/errors/cpf.error';
 import * as StringHelper from '../src/string.helper'
 
 test('Should return false when CPF is null', () => {

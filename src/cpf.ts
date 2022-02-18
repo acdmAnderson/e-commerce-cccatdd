@@ -1,5 +1,5 @@
-import CPFError from './errors/cpf.error';
 import { getOnlyDigits, hasAllSameCharacters } from './string.helper'
+import CPFError from './errors/cpf.error';
 
 export default class CPF {
 
