@@ -6,7 +6,7 @@ export default class Item {
 
     getDensity(): number {
         if (this.dimension && this.weight) {
-            return ~~(this.weight / this.dimension.getVolume());
+            return (this.weight / this.dimension.getVolume());
         }
         return 0;
     }
