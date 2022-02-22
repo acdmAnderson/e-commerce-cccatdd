@@ -36,5 +36,6 @@ test("Should make an order with coupon", () => {
 
 test("Shouldn't apply expired coupon", () => {
     const fakeOrder = makeFakeOrder()
+    fakeOrder.addCoupon(new Coupon('any_code', 5, new Date('2021-02-22T09:59:59')))
     expect(fakeOrder.getTotal()).toBe(150)
 })
