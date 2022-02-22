@@ -5,3 +5,9 @@ test('Should return true if coupon is not expired', () => {
     const isExpired = fakeCoupon.isExpired(new Date('2021-02-22T23:59:59'))
     expect(isExpired).toBe(true);
 })
+
+test('Should return false if coupon is expired', () => {
+    const fakeCoupon = new Coupon('any_code', 5, new Date('2020-02-22T23:59:59'))
+    const isExpired = fakeCoupon.isExpired();
+    expect(isExpired).toBe(false);
+})
