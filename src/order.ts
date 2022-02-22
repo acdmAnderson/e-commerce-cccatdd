@@ -22,7 +22,9 @@ export default class Order {
     }
 
     addCoupon(coupon: Coupon | undefined = undefined) {
-        this.coupon = coupon;
+        if (coupon && !coupon.isExpired(this.issueDate)) {
+            this.coupon = coupon;
+        }
     }
 
     getTotal(): number {
