@@ -1,17 +1,13 @@
+import Dimension from './dimension';
+
 export default class Item {
 
-    readonly idItem: number;
+    constructor(readonly idItem: number, readonly category: string, readonly description: string, readonly price: number, readonly dimension?: Dimension, readonly weight?: number) { }
 
-    readonly category: string;
-
-    readonly description: string;
-
-    readonly price: number;
-
-    constructor(idItem: number, category: string, description: string, price: number) {
-        this.idItem = idItem;
-        this.category = category;
-        this.description = description;
-        this.price = price;
+    getDensity(): number {
+        if (this.dimension && this.weight) {
+            return ~~(this.weight / this.dimension.getVolume());
+        }
+        return 0;
     }
 }
