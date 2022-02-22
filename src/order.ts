@@ -9,17 +9,20 @@ export default class Order {
 
     readonly orderItems: OrderItem[];
 
-    private readonly coupon: Coupon | undefined;
+    private coupon: Coupon | undefined;
 
 
-    constructor(cpf: string, coupon: Coupon | undefined = undefined) {
+    constructor(cpf: string, readonly issueDate: Date = new Date()) {
         this.cpf = new CPF(cpf);
         this.orderItems = [];
-        this.coupon = coupon;
     }
 
     addItem(item: Item, quantity: number): void {
         this.orderItems.push(new OrderItem(item.idItem, item.price, quantity));
+    }
+
+    addCoupon(coupon: Coupon | undefined = undefined) {
+        this.coupon = coupon;
     }
 
     getTotal(): number {
