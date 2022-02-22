@@ -10,3 +10,11 @@ test('Should calculate freight value', () => {
     const value = fakeFreight.getValue();
     expect(value).toBe(10)
 })
+
+test(`Shouldn’t calculate freight value if dimension and weight not exists`, () => {
+    const fakeFreight = new Freight();
+    const fakeItem = new Item(1, 'any_category', 'any_description', 50);
+    fakeFreight.addItem(fakeItem)
+    const value = fakeFreight.getValue();
+    expect(value).toBe(0)
+})
