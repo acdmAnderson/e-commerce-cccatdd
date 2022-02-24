@@ -38,7 +38,7 @@ export default class Order {
             total += orderItem.getTotal();
         }
         total += this.freight.getValue();
-        if (this.coupon) total -= total * (this.coupon.percentage / 100);
+        if (this.coupon) total -= this.coupon.calculateDiscount(total)
         return total
     }
 }
