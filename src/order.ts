@@ -26,8 +26,8 @@ export default class Order {
         this.freight.addItem(item);
     }
 
-    addCoupon(coupon: Coupon | undefined = undefined) {
-        if (coupon && !coupon.isExpired(this.issueDate)) {
+    addCoupon(coupon: Coupon) {
+        if (!coupon.isExpired(this.issueDate)) {
             this.coupon = coupon;
         }
     }
