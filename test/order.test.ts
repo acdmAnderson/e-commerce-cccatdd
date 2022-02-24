@@ -1,4 +1,5 @@
 import Coupon from '../src/coupon';
+import Dimension from '../src/dimension';
 import CPFError from '../src/errors/cpf.error';
 import Item from '../src/item'
 import Order from '../src/order'
@@ -9,12 +10,6 @@ const makeFakeOrder = (): Order => {
     fakeOrder.addItem(new Item(2, 'any_category', 'any_description', 50), 1);
     fakeOrder.addItem(new Item(3, 'any_category', 'any_description', 50), 1);
     return fakeOrder;
-}
-
-const makeCoupon = (addedHour: number) => {
-    const date = new Date();
-    date.setHours(date.getHours() + addedHour);
-    return new Coupon('any_name', 5, date);
 }
 
 test("Shouldn't make an order with invalid CPF", () => {
@@ -38,4 +33,12 @@ test("Shouldn't apply expired coupon", () => {
     const fakeOrder = makeFakeOrder()
     fakeOrder.addCoupon(new Coupon('any_code', 5, new Date('2021-02-22T09:59:59')))
     expect(fakeOrder.getTotal()).toBe(150)
+})
+
+test('Should add freight value at total order', () => {
+    const fakeOrder = new Order('11144477735');
+    const fakeDimension = new Dimension(100, 30, 10);
+    fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50, fakeDimension, 3), 1);
+    const total = fakeOrder.getTotal();
+    expect(total).toBe(80)
 })
