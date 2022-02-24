@@ -2,6 +2,10 @@ import Item from "./item";
 
 export default class Freight {
 
+    private readonly MIN_FREIGHT_VALUE = 10;
+
+    private readonly DISTANCE = 1000;
+
     private value: number;
 
     constructor() {
@@ -10,11 +14,11 @@ export default class Freight {
 
     addItem(item: Item): void {
         if (item.dimension && item.weight) {
-            this.value += 1000 * item.dimension.getVolume() * (item.getDensity() / 100)
+            this.value += this.DISTANCE * item.dimension.getVolume() * (item.getDensity() / 100)
         }
     }
 
     getValue(): number {
-        return this.value
+        return (this.value > 0 && this.value < this.MIN_FREIGHT_VALUE) ? this.MIN_FREIGHT_VALUE : this.value; 
     }
 }
