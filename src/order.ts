@@ -23,7 +23,7 @@ export default class Order {
 
     addItem(item: Item, quantity: number): void {
         this.orderItems.push(new OrderItem(item.idItem, item.price, quantity));
-        this.freight.addItem(item);
+        this.freight.addItem(item, quantity);
     }
 
     addCoupon(coupon: Coupon) {

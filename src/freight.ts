@@ -12,13 +12,14 @@ export default class Freight {
         this.value = 0;
     }
 
-    addItem(item: Item): void {
+    addItem(item: Item, quantity: number): void {
         if (item.dimension && item.weight) {
-            this.value += this.DISTANCE * item.dimension.getVolume() * (item.getDensity() / 100)
+            this.value += (this.DISTANCE * item.dimension.getVolume() * (item.getDensity() / 100)) * quantity;
         }
     }
 
     getValue(): number {
-        return (this.value > 0 && this.value < this.MIN_FREIGHT_VALUE) ? this.MIN_FREIGHT_VALUE : this.value; 
+        if(this.value > 0 && this.value < this.MIN_FREIGHT_VALUE) return this.MIN_FREIGHT_VALUE;
+        return this.value;
     }
 }
