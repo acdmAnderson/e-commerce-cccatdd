@@ -1,14 +1,14 @@
-import PlaceOrder from '../src/place-order';
-import PlaceOrderInput from '../src/place-order.input';
-import CouponRepository from '../src/coupon.repository'
-import OrderRepository from '../src/order.repository'
-import ItemRepository from '../src/item.repository'
-import coupon from '../src/coupon';
-import item from '../src/item';
-import Item from '../src/item';
-import order from '../src/order';
-import Order from '../src/order';
-import Coupon from '../src/coupon';
+import PlaceOrder from '../../src/application/usecases/place-order/place-order';
+import PlaceOrderInput from '../../src/application/usecases/place-order/place-order.input';
+import CouponRepository from '../../src/domain/repositories/coupon.repository'
+import OrderRepository from '../../src/domain/repositories/order.repository'
+import ItemRepository from '../../src/domain/repositories/item.repository'
+import coupon from '../../src/domain/entities/coupon';
+import item from '../../src/domain/entities/item';
+import Item from '../../src/domain/entities/item';
+import order from '../../src/domain/entities/order';
+import Order from '../../src/domain/entities/order';
+import Coupon from '../../src/domain/entities/coupon';
 
 const makeFakeItemRepository = (): ItemRepository => {
     class FakeItemRepository implements ItemRepository {

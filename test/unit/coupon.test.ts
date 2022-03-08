@@ -1,4 +1,4 @@
-import Coupon from '../src/coupon'
+import Coupon from '../../src/domain/entities/coupon'
 
 test('Should return false if coupon is not expired', () => {
     const fakeCoupon = new Coupon('any_code', 5)

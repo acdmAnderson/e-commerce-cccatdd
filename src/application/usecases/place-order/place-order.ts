@@ -1,7 +1,7 @@
-import CouponRepository from './coupon.repository';
-import ItemRepository from './item.repository';
-import Order from './order';
-import OrderRepository from './order.repository';
+import CouponRepository from '../../../domain/repositories/coupon.repository';
+import ItemRepository from '../../../domain/repositories/item.repository';
+import Order from '../../../domain/entities/order';
+import OrderRepository from '../../../domain/repositories/order.repository';
 import PlaceOrderInput from './place-order.input';
 import PlaceOrderOutput from './place-order.output';
 

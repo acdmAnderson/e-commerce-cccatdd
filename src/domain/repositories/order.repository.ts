@@ -1,4 +1,4 @@
-import Order from './order';
+import Order from '../entities/order';
 
 export default interface OrderRepository {
     save(order: Order): void;

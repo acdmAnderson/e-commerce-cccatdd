@@ -1,6 +1,6 @@
-import CPF from '../src/cpf';
-import CPFError from '../src/errors/cpf.error';
-import * as StringHelper from '../src/string.helper'
+import CPF from '../../src/domain/entities/cpf';
+import CPFError from '../../src/errors/cpf.error';
+import * as StringHelper from '../../src/domain/entities/string.helper'
 
 test('Should return false when CPF is null', () => {
     const fakeCpf: any = null;
