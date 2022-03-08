@@ -4,7 +4,6 @@ import CouponRepository from '../../src/domain/repositories/coupon.repository'
 import OrderRepository from '../../src/domain/repositories/order.repository'
 import ItemRepository from '../../src/domain/repositories/item.repository'
 import coupon from '../../src/domain/entities/coupon';
-import item from '../../src/domain/entities/item';
 import Item from '../../src/domain/entities/item';
 import order from '../../src/domain/entities/order';
 import Order from '../../src/domain/entities/order';
@@ -21,7 +20,7 @@ const makeFakeItemRepository = (): ItemRepository => {
                 new Item(3, 'any_category', 'any_description', 50),
             ]
         }
-        getById(id: number): item | undefined {
+        getById(id: number): Item | undefined {
             return this.items.find(item => item.idItem === id);
         }
     }
