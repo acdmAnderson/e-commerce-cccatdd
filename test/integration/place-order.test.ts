@@ -37,6 +37,10 @@ const makeFakeOrderRepository = (): OrderRepository => {
             this.orders = []
         }
 
+        count(): number {
+            return this.orders.length;
+        }
+
         save(order: order): void {
             this.orders.push(order)
         }
@@ -67,7 +71,24 @@ test('Should place an order', () => {
         { idItem: 1, quantity: 1 },
         { idItem: 2, quantity: 3 },
         { idItem: 3, quantity: 1 }
-    ], 'VALE20')
+    ], new Date(), 'VALE20')
     const output = placeOrder.execute(input);
     expect(output.total).toBe(200)
+})
+
+test('Should place an order and your code', () => {
+    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const input = new PlaceOrderInput(
+        '11144477735',
+        [
+            { idItem: 1, quantity: 1 },
+            { idItem: 2, quantity: 3 },
+            { idItem: 3, quantity: 1 }
+        ],
+        new Date('2021-01-01T10:00:00'),
+        'VALE20'
+    )
+    placeOrder.execute(input);
+    const output = placeOrder.execute(input);
+    expect(output.code).toBe('202100000002')
 })
