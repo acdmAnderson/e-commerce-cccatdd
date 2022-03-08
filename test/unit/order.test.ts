@@ -42,3 +42,11 @@ test('Should add freight value at total order', () => {
     const total = fakeOrder.getTotal();
     expect(total).toBe(80)
 })
+
+test("Should make an order and generate order code", () => {
+    const fakeIssueDate = new Date('2021-02-22T10:00:00');
+    const fakeSequence = 1;
+    const fakeOrder = new Order('11144477735', fakeIssueDate, 1);
+    fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), 1);
+    expect(fakeOrder.getCode()).toBe('202100000001');
+})
