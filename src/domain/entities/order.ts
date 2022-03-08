@@ -46,7 +46,7 @@ export default class Order {
         return total
     }
 
-    getCode(): String {
+    getCode(): string {
         return this.orderCode.getCode()
     }
 }
