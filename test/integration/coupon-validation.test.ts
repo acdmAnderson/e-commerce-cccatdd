@@ -1,0 +1,28 @@
+import CouponValidation from '../../src/application/usecases/coupon-validation/coupon-validation'
+import CouponValidationInput from '../../src/application/usecases/coupon-validation/coupon-validation.input';
+import Coupon from '../../src/domain/entities/coupon';
+import CouponRepository from '../../src/domain/repositories/coupon.repository';
+
+const makeFakeCouponRepository = (): CouponRepository => {
+    class FakeCouponRepository implements CouponRepository {
+        readonly coupons: Coupon[];
+
+        constructor() {
+            this.coupons = [
+                new Coupon('VALE20', 20, new Date('2020-01-01T10:00:00'))
+            ]
+        }
+        
+        getByCode(code: string): Coupon | undefined {
+            return this.coupons.find(coupon => coupon.code === code);
+        }
+    }
+    return new FakeCouponRepository();
+}
+
+test('Shoud validate coupon', () => {
+    const couponValidation = new CouponValidation(makeFakeCouponRepository());
+    const input = new CouponValidationInput('VALE20');
+    const output = couponValidation.execute(input);
+    expect(output.isValid).toBeTruthy()
+})
