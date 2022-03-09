@@ -56,7 +56,7 @@ const makeFakeCouponRepository = (): CouponRepository => {
                 new Coupon('VALE20', 20)
             ]
         }
-        getByCode(code: string): coupon | undefined {
+        getByCode(code: string): Coupon | undefined {
             return this.coupons.find(coupon => coupon.code === code);
         }
     }
