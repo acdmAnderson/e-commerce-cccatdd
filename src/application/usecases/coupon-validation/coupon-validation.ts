@@ -8,7 +8,7 @@ export default class CouponValidation {
 
     execute(input: CouponValidationInput): CouponValidationOutput {
         const coupon = this.couponRepository.getByCode(input.code);
-        if(!coupon) return new CouponValidationOutput(false);
+        if (!coupon) return new CouponValidationOutput(false);
         return new CouponValidationOutput(coupon.isExpired(input.currentDate));
     }
 }

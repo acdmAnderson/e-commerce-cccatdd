@@ -12,7 +12,7 @@ test('Should return true if coupon is expired', () => {
     expect(isExpired).toBe(true);
 })
 
-test('Should return false if coupon is not expired', () => {
+test('Should calculate coupon discount', () => {
     const fakeCoupon = new Coupon('any_code', 20)
     const discount = fakeCoupon.calculateDiscount(1000);
     expect(discount).toBe(200);
