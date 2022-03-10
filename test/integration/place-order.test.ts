@@ -109,3 +109,22 @@ test('Should throw if item not exists', () => {
     ])
     expect(() => placeOrder.execute(input)).toThrow(new Error('Item not found'))
 })
+
+
+test('Should place an order with nonexistent coupon code', () => {
+    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const nonexistentCode = 'nonexistent_code';
+    const input = new PlaceOrderInput(
+        '11144477735',
+        [
+            { idItem: 1, quantity: 1 },
+            { idItem: 2, quantity: 3 },
+            { idItem: 3, quantity: 1 }
+        ],
+        new Date('2021-01-01T10:00:00'),
+        nonexistentCode
+    )
+    const output = placeOrder.execute(input);
+    expect(output.total).toBe(250)
+    expect(output.code).toBe('202100000001')
+})
