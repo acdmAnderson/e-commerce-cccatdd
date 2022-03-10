@@ -27,3 +27,9 @@ test('Should simulate freight', () => {
     const output = freightSimulate.execute(freightSimulateInput);
     expect(output.value).toBe(30)
 })
+
+test('Should throw if freight throws', () => {
+    const freightSimulate = new FreightSimulate(makeFakeItemRepository())
+    const freightSimulateInput = new FreightSimulateInput([{ idItem: 2, quantity: 3 }]);
+    expect(() => freightSimulate.execute(freightSimulateInput)).toThrow(new Error('Item not found'))
+})
