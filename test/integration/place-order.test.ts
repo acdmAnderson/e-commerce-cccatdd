@@ -101,3 +101,11 @@ test('Should place an order without coupon', () => {
     const output = placeOrder.execute(input);
     expect(output.total).toBe(250)
 })
+
+test('Should throw if item not exists', () => {
+    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const input = new PlaceOrderInput('11144477735', [
+        { idItem: -999, quantity: 3 },
+    ])
+    expect(() => placeOrder.execute(input)).toThrow(new Error('Item not found'))
+})
