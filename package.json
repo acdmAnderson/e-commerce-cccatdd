@@ -4,7 +4,8 @@
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
-    "test": "rimraf ./dist && tsc && jest ./dist"
+    "test": "rimraf ./dist && tsc && jest ./dist",
+    "test:cov": "npm run test -- --coverage"
   },
   "keywords": [],
   "author": "",
