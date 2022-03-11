@@ -4,7 +4,7 @@ export default class OrderCode {
 
     private readonly code: string;
 
-    constructor(issueDate: Date = new Date(), sequence: number = 1) {
+    constructor(issueDate: Date, sequence: number) {
         this.code = this.generateCode(issueDate, sequence);
     }
 
