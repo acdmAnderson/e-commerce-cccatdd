@@ -12,7 +12,7 @@ const makeFakeCouponRepository = (): CouponRepository => {
                 new Coupon('VALE20', 20, new Date('2020-01-01T10:00:00'))
             ]
         }
-        
+
         getByCode(code: string): Coupon | undefined {
             return this.coupons.find(coupon => coupon.code === code);
         }
@@ -20,9 +20,18 @@ const makeFakeCouponRepository = (): CouponRepository => {
     return new FakeCouponRepository();
 }
 
-test('Shoud validate coupon', () => {
+test('Should validate coupon', () => {
     const couponValidation = new CouponValidation(makeFakeCouponRepository());
     const input = new CouponValidationInput('VALE20');
     const output = couponValidation.execute(input);
     expect(output.isValid).toBeTruthy()
+})
+
+
+test('Should return invalid if coupon code not exists', () => {
+    const couponValidation = new CouponValidation(makeFakeCouponRepository());
+    const nonexistentCode = 'nonexistent_code'
+    const input = new CouponValidationInput(nonexistentCode);
+    const output = couponValidation.execute(input);
+    expect(output.isValid).toBeFalsy()
 })
