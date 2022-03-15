@@ -1,15 +1,14 @@
-import Connection from '../../src/infra/database/connection';
 import PostgreSQLConnectionAdapter from '../../src/infra/database/postgres-connection';
 
-let connection: Connection;
+const connection = new PostgreSQLConnectionAdapter();
 
-beforeEach(() => {
-    connection = new PostgreSQLConnectionAdapter();
+beforeEach(async () => {
+    await connection.connect()
 })
 
-test('Should connect with database', () => {
-    const conn = connection;
-    expect(conn.isAlive()).toBeTruthy()
+test('Should connect with database', async () => {
+    const isAlive = await connection.isAlive();
+    expect(isAlive).toBeTruthy()
 })
 
 afterEach(async () => {

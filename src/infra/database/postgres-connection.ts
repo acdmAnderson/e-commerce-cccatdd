@@ -9,7 +9,10 @@ export default class PostgreSQLConnectionAdapter implements Connection {
 
     constructor() {
         this.connection = new Client({ connectionString: 'postgres://postgres:mysecretpassword@localhost:5432/postgres' });
-        this.connection.connect()
+    }
+
+    async connect(): Promise<void> {
+        await this.connection.connect()
             .then(() => {
                 console.log('Database Connected');
                 this.connected = true;
@@ -18,7 +21,12 @@ export default class PostgreSQLConnectionAdapter implements Connection {
     }
 
     async close(): Promise<void> {
-        await this.connection.end();
+        await this.connection.end()
+            .then(() => {
+                console.log('client has disconnected');
+                this.connected = false;
+            })
+            .catch(err => console.error('error during disconnection', err.stack));
     }
 
     async query(stmp: string, params: any): Promise<any> {
