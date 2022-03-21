@@ -6,8 +6,8 @@ export default class CouponValidation {
 
     constructor(private readonly couponRepository: CouponRepository) { }
 
-    execute(input: CouponValidationInput): CouponValidationOutput {
-        const coupon = this.couponRepository.getByCode(input.code);
+    async execute(input: CouponValidationInput): Promise<CouponValidationOutput> {
+        const coupon = await this.couponRepository.getByCode(input.code);
         if (!coupon) return new CouponValidationOutput(false);
         return new CouponValidationOutput(coupon.isExpired(input.currentDate));
     }

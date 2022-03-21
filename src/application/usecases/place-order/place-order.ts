@@ -13,16 +13,16 @@ export default class PlaceOrder {
         private readonly orderRepository: OrderRepository
     ) { }
 
-    execute(input: PlaceOrderInput): PlaceOrderOutput {
-        const sequence = this.orderRepository.count() + 1;
+    async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
+        const sequence = await this.orderRepository.count() + 1;
         const order = new Order(input.cpf, input.issueDate, sequence);
         for (const { quantity, idItem } of input.items) {
-            const item = this.itemRepository.getById(idItem);
+            const item = await this.itemRepository.getById(idItem);
             if (!item) throw new Error('Item not found')
             order.addItem(item, quantity);
         }
         if (input.coupon) {
-            const coupon = this.couponRepository.getByCode(input.coupon);
+            const coupon = await this.couponRepository.getByCode(input.coupon);
             if (coupon) order.addCoupon(coupon);
         }
         this.orderRepository.save(order);

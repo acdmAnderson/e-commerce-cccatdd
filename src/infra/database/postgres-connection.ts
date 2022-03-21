@@ -29,8 +29,8 @@ export default class PostgreSQLConnectionAdapter implements Connection {
             .catch(err => console.error('error during disconnection', err.stack));
     }
 
-    async query(stmp: string, params: any): Promise<any> {
-        return this.connection.query(stmp, params)
+    async query(stmt: string, params: any): Promise<any> {
+        return this.connection.query(stmt, params)
     }
 
     async isAlive(): Promise<boolean> {

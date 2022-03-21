@@ -14,22 +14,24 @@ const makeFakeItemRepository = (): ItemRepository => {
                 new Item(1, 'any_category', 'any_description', 50, dimension, 1)
             ]
         }
-        getById(id: number): Item | undefined {
+
+        async getById(id: number): Promise<Item | undefined> {
             return this.items.find(item => item.idItem === id);
         }
     }
     return new FakeItemRepository();
 }
 
-test('Should simulate freight', () => {
+test('Should simulate freight', async () => {
     const freightSimulate = new FreightSimulate(makeFakeItemRepository())
     const freightSimulateInput = new FreightSimulateInput([{ idItem: 1, quantity: 3 }]);
-    const output = freightSimulate.execute(freightSimulateInput);
+    const output = await freightSimulate.execute(freightSimulateInput);
     expect(output.value).toBe(30)
 })
 
 test('Should throw if freight throws', () => {
     const freightSimulate = new FreightSimulate(makeFakeItemRepository())
     const freightSimulateInput = new FreightSimulateInput([{ idItem: 2, quantity: 3 }]);
-    expect(() => freightSimulate.execute(freightSimulateInput)).toThrow(new Error('Item not found'))
+    const output = freightSimulate.execute(freightSimulateInput);
+    expect(output).rejects.toThrow(new Error('Item not found'))
 })

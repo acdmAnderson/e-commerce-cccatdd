@@ -13,25 +13,25 @@ const makeFakeCouponRepository = (): CouponRepository => {
             ]
         }
 
-        getByCode(code: string): Coupon | undefined {
+        async getByCode(code: string): Promise<Coupon | undefined> {
             return this.coupons.find(coupon => coupon.code === code);
         }
     }
     return new FakeCouponRepository();
 }
 
-test('Should validate coupon', () => {
+test('Should validate coupon', async () => {
     const couponValidation = new CouponValidation(makeFakeCouponRepository());
     const input = new CouponValidationInput('VALE20');
-    const output = couponValidation.execute(input);
+    const output = await couponValidation.execute(input);
     expect(output.isValid).toBeTruthy()
 })
 
 
-test('Should return invalid if coupon code not exists', () => {
+test('Should return invalid if coupon code not exists', async () => {
     const couponValidation = new CouponValidation(makeFakeCouponRepository());
     const nonexistentCode = 'nonexistent_code'
     const input = new CouponValidationInput(nonexistentCode);
-    const output = couponValidation.execute(input);
+    const output = await couponValidation.execute(input);
     expect(output.isValid).toBeFalsy()
 })

@@ -7,10 +7,10 @@ export default class FreightSimulate {
 
     constructor(private readonly itemRepository: ItemRepository) { }
 
-    execute(input: FreightSimulateInput): FreightSimulateOutput {
+    async execute(input: FreightSimulateInput): Promise<FreightSimulateOutput> {
         const freight = new Freight();
         for (const { idItem, quantity } of input.items) {
-            const item = this.itemRepository.getById(idItem);
+            const item = await this.itemRepository.getById(idItem);
             if (!item) throw new Error('Item not found');
             freight.addItem(item, quantity)
         }

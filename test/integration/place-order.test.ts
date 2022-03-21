@@ -19,7 +19,7 @@ const makeFakeItemRepository = (): ItemRepository => {
                 new Item(3, 'any_category', 'any_description', 50),
             ]
         }
-        getById(id: number): Item | undefined {
+        async getById(id: number): Promise<Item | undefined> {
             return this.items.find(item => item.idItem === id);
         }
     }
@@ -35,11 +35,11 @@ const makeFakeOrderRepository = (): OrderRepository => {
             this.orders = []
         }
 
-        count(): number {
+        async count(): Promise<number> {
             return this.orders.length;
         }
 
-        save(order: order): void {
+        async save(order: order): Promise<void> {
             this.orders.push(order)
         }
     }
@@ -55,7 +55,7 @@ const makeFakeCouponRepository = (): CouponRepository => {
                 new Coupon('VALE20', 20)
             ]
         }
-        getByCode(code: string): Coupon | undefined {
+        async getByCode(code: string): Promise<Coupon | undefined> {
             return this.coupons.find(coupon => coupon.code === code);
         }
     }
@@ -63,18 +63,18 @@ const makeFakeCouponRepository = (): CouponRepository => {
 }
 
 
-test('Should place an order', () => {
+test('Should place an order', async () => {
     const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: 1 },
         { idItem: 2, quantity: 3 },
         { idItem: 3, quantity: 1 }
     ], new Date(), 'VALE20')
-    const output = placeOrder.execute(input);
+    const output = await placeOrder.execute(input);
     expect(output.total).toBe(200)
 })
 
-test('Should place an order and your code', () => {
+test('Should place an order and your code', async () => {
     const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
     const input = new PlaceOrderInput(
         '11144477735',
@@ -86,32 +86,23 @@ test('Should place an order and your code', () => {
         new Date('2021-01-01T10:00:00'),
         'VALE20'
     )
-    placeOrder.execute(input);
-    const output = placeOrder.execute(input);
+    await placeOrder.execute(input);
+    const output = await placeOrder.execute(input);
     expect(output.code).toBe('202100000002')
 })
 
-test('Should place an order without coupon', () => {
+test('Should place an order without coupon', async () => {
     const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: 1 },
         { idItem: 2, quantity: 3 },
         { idItem: 3, quantity: 1 }
     ])
-    const output = placeOrder.execute(input);
+    const output = await placeOrder.execute(input);
     expect(output.total).toBe(250)
 })
 
-test('Should throw if item not exists', () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
-    const input = new PlaceOrderInput('11144477735', [
-        { idItem: -999, quantity: 3 },
-    ])
-    expect(() => placeOrder.execute(input)).toThrow(new Error('Item not found'))
-})
-
-
-test('Should place an order with nonexistent coupon code', () => {
+test('Should place an order with nonexistent coupon code', async () => {
     const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
     const nonexistentCode = 'nonexistent_code';
     const input = new PlaceOrderInput(
@@ -124,7 +115,18 @@ test('Should place an order with nonexistent coupon code', () => {
         new Date('2021-01-01T10:00:00'),
         nonexistentCode
     )
-    const output = placeOrder.execute(input);
+    const output = await placeOrder.execute(input);
     expect(output.total).toBe(250)
     expect(output.code).toBe('202100000001')
 })
+
+test('Should throw if item not exists', () => {
+    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const input = new PlaceOrderInput('11144477735', [
+        { idItem: -999, quantity: 3 },
+    ])
+    const output = placeOrder.execute(input);
+    expect(output).rejects.toThrow(new Error('Item not found'))
+})
+
+

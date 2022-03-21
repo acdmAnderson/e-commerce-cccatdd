@@ -2,7 +2,7 @@ export default interface Connection {
 
     connect(): Promise<void>
 
-    query(stmp: string, params: any): Promise<any>;
+    query(stmt: string, params: any): Promise<any>;
 
     isAlive(): Promise<boolean>;
 
