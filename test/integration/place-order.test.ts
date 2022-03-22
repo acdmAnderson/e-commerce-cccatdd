@@ -29,10 +29,13 @@ const makeFakeItemRepository = (): ItemRepository => {
 const makeFakeOrderRepository = (): OrderRepository => {
     class FakeOrderRepository implements OrderRepository {
 
-        readonly orders: Order[];
+        private orders: Order[];
 
         constructor() {
             this.orders = []
+        }
+        async clean(): Promise<void> {
+            this.orders = [];
         }
 
         async count(): Promise<number> {

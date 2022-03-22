@@ -49,4 +49,12 @@ export default class Order {
     getCode(): string {
         return this.orderCode.getCode()
     }
+
+    getCoupon(): Coupon | undefined {
+        return this.coupon;
+    }
+
+    getFreight(): Freight {
+        return this.freight;
+    }
 }
