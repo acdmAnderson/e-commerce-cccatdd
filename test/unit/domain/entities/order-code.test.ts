@@ -1,4 +1,4 @@
-import OrderCode from '../../src/domain/entities/order-code';
+import OrderCode from '../../../../src/domain/entities/order-code';
 
 test('Should create a order code', () => {
     const fakeIssueDate = new Date('2021-01-01T10:00:00')

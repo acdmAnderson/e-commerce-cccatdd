@@ -1,7 +1,7 @@
-import CouponValidation from '../../src/application/usecases/coupon-validation/coupon-validation'
-import CouponValidationInput from '../../src/application/usecases/coupon-validation/coupon-validation.input';
-import Coupon from '../../src/domain/entities/coupon';
-import CouponRepository from '../../src/domain/repositories/coupon.repository';
+import CouponValidation from '../../../../src/application/usecases/coupon-validation/coupon-validation'
+import CouponValidationInput from '../../../../src/application/usecases/coupon-validation/coupon-validation.input';
+import Coupon from '../../../../src/domain/entities/coupon';
+import CouponRepository from '../../../../src/domain/repositories/coupon.repository';
 
 const makeFakeCouponRepository = (): CouponRepository => {
     class FakeCouponRepository implements CouponRepository {

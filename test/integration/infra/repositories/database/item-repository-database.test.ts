@@ -1,5 +1,5 @@
-import PostgreSQLConnectionAdapter from '../../src/infra/database/postgres-connection'
-import ItemRepositoryDatabase from '../../src/infra/repositories/database/item-repository-database';
+import PostgreSQLConnectionAdapter from '../../../../../src/infra/database/postgres-connection'
+import ItemRepositoryDatabase from '../../../../../src/infra/repositories/database/item-repository-database';
 
 const connection = new PostgreSQLConnectionAdapter();
 

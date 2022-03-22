@@ -1,5 +1,5 @@
-import Item from '../../src/domain/entities/item';
-import Dimension from '../../src/domain/entities/dimension'
+import Item from '../../../../src/domain/entities/item';
+import Dimension from '../../../../src/domain/entities/dimension'
 
 test('Should calculate density', () => {
     const fakeDimension = new Dimension(100, 30, 10);

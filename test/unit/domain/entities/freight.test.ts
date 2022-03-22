@@ -1,6 +1,6 @@
-import Dimension from '../../src/domain/entities/dimension';
-import Freight from '../../src/domain/entities/freight';
-import Item from '../../src/domain/entities/item';
+import Dimension from '../../../../src/domain/entities/dimension';
+import Freight from '../../../../src/domain/entities/freight';
+import Item from '../../../../src/domain/entities/item';
 
 test('Should calculate freight value', () => {
     const fakeFreight = new Freight();

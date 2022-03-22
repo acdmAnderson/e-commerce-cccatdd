@@ -1,8 +1,8 @@
-import FreightSimulate from '../../src/application/usecases/freight-simulate/freight-simulate';
-import FreightSimulateInput from '../../src/application/usecases/freight-simulate/freight-simulate.input';
-import Dimension from '../../src/domain/entities/dimension';
-import Item from '../../src/domain/entities/item';
-import ItemRepository from '../../src/domain/repositories/item.repository';
+import FreightSimulate from '../../../../src/application/usecases/freight-simulate/freight-simulate';
+import FreightSimulateInput from '../../../../src/application/usecases/freight-simulate/freight-simulate.input';
+import Dimension from '../../../../src/domain/entities/dimension';
+import Item from '../../../../src/domain/entities/item';
+import ItemRepository from '../../../../src/domain/repositories/item.repository';
 
 
 const makeFakeItemRepository = (): ItemRepository => {

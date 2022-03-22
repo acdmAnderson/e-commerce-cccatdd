@@ -1,8 +1,8 @@
-import Coupon from '../../src/domain/entities/coupon';
-import Dimension from '../../src/domain/entities/dimension';
-import CPFError from '../../src/errors/cpf.error';
-import Item from '../../src/domain/entities/item'
-import Order from '../../src/domain/entities/order'
+import Coupon from '../../../../src/domain/entities/coupon';
+import Dimension from '../../../../src/domain/entities/dimension';
+import CPFError from '../../../../src/errors/cpf.error';
+import Item from '../../../../src/domain/entities/item'
+import Order from '../../../../src/domain/entities/order'
 
 const makeFakeOrder = (): Order => {
     const fakeOrder = new Order('11144477735');

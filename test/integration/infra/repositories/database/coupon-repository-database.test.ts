@@ -1,5 +1,5 @@
-import PostgreSQLConnectionAdapter from '../../src/infra/database/postgres-connection';
-import CouponRepositoryDatabase from '../../src/infra/repositories/database/coupon-repository-database';
+import PostgreSQLConnectionAdapter from '../../../../../src/infra/database/postgres-connection';
+import CouponRepositoryDatabase from '../../../../../src/infra/repositories/database/coupon-repository-database';
 
 const connection = new PostgreSQLConnectionAdapter();
 

@@ -1,7 +1,7 @@
-import Item from '../../src/domain/entities/item';
-import Order from '../../src/domain/entities/order';
-import PostgreSQLConnectionAdapter from '../../src/infra/database/postgres-connection'
-import OrderRepositoryDatabase from '../../src/infra/repositories/database/order-repository-database';
+import Item from '../../../../../src/domain/entities/item';
+import Order from '../../../../../src/domain/entities/order';
+import PostgreSQLConnectionAdapter from '../../../../../src/infra/database/postgres-connection'
+import OrderRepositoryDatabase from '../../../../../src/infra/repositories/database/order-repository-database';
 
 const connection = new PostgreSQLConnectionAdapter();
 
