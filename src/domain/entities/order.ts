@@ -41,8 +41,8 @@ export default class Order {
         for (const orderItem of this.orderItems) {
             total += orderItem.getTotal();
         }
-        total += this.freight.getValue();
         if (this.coupon) total -= this.coupon.calculateDiscount(total)
+        total += this.freight.getValue();
         return total
     }
 
