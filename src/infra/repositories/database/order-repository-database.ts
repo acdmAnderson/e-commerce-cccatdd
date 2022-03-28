@@ -29,9 +29,10 @@ export default class OrderRepositoryDatabase implements OrderRepository {
         return count;
     }
 
-    async getByCode(code: string): Promise<Order> {
+    async getByCode(code: string): Promise<Order | undefined> {
         const orderResult = await this.connection.query('SELECT * FROM ccca.order o WHERE o.code = $1;', [code]);
         const [orderData] = orderResult.rows;
+        if(!orderData) return undefined;
         const orderItemsResult = await this.connection.query('SELECT * FROM ccca.order_item oi WHERE oi.id_order = $1;', [orderData.id_order]);
         const orderItemsData = orderItemsResult.rows;
         const order = new Order(orderData.cpf, orderData.issue_date, orderData.sequence);
