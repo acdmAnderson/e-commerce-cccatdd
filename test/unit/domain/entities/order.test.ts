@@ -12,24 +12,24 @@ const makeFakeOrder = (): Order => {
     return fakeOrder;
 }
 
-test("Shouldn't make an order with invalid CPF", () => {
+test(`Shouldn't make an order with invalid CPF`, () => {
     const invalidCPF = 'invalid_cpf';
     expect(() => new Order(invalidCPF)).toThrow(new CPFError(invalidCPF))
 })
 
-test("Should make an order with 3 items", () => {
+test(`Should make an order with 3 items`, () => {
     const fakeOrder = makeFakeOrder();
     expect(fakeOrder.orderItems.length).toBe(3)
     expect(fakeOrder.getTotal()).toBe(150);
 })
 
-test("Should make an order with coupon", () => {
+test(`Should make an order with coupon`, () => {
     const fakeOrder = makeFakeOrder();
     fakeOrder.addCoupon(new Coupon('any_code', 5, new Date()))
     expect(fakeOrder.getTotal()).toBe(142.5)
 })
 
-test("Shouldn't apply expired coupon", () => {
+test(`Shouldn't apply expired coupon`, () => {
     const fakeOrder = makeFakeOrder()
     fakeOrder.addCoupon(new Coupon('any_code', 5, new Date('2021-02-22T09:59:59')))
     expect(fakeOrder.getTotal()).toBe(150)
@@ -43,10 +43,15 @@ test('Should add freight value at total order', () => {
     expect(total).toBe(80)
 })
 
-test("Should make an order and generate order code", () => {
+test(`Should make an order and generate order code`, () => {
     const fakeIssueDate = new Date('2021-02-22T10:00:00');
     const fakeSequence = 1;
     const fakeOrder = new Order('11144477735', fakeIssueDate, fakeSequence);
     fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), 1);
     expect(fakeOrder.getCode()).toBe('202100000001');
+})
+
+test(`Shouldn't make an order with negative quantity of items`, () => {
+    const fakeOrder = new Order('11144477735');
+    expect(() => fakeOrder.addItem(new Item(1, 'any_category', 'any_description', 50), -1)).toThrow(new Error('Quantity should be positive'));
 })
