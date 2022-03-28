@@ -14,6 +14,7 @@ export default class PlaceOrder {
     ) { }
 
     async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
+        if(input.items.some((item, index) => item.idItem === input.items[index + 1]?.idItem)) throw new Error('Items cannot be duplicated');
         const sequence = await this.orderRepository.count() + 1;
         const order = new Order(input.cpf, input.issueDate, sequence);
         for (const { quantity, idItem } of input.items) {
