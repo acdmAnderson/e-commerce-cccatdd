@@ -35,6 +35,10 @@ const makeFakeOrderRepository = (): OrderRepository => {
             this.orders = []
         }
 
+        async getAll(): Promise<Order[]> {
+            return this.orders;
+        }
+
         async getByCode(code: string): Promise<Order | undefined> {
             return this.orders.find((order) => order.getCode() === code);
         }

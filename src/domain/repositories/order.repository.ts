@@ -9,4 +9,6 @@ export default interface OrderRepository {
     count(): Promise<number>;
 
     clean(): Promise<void>;
+
+    getAll(): Promise<Order[]>;
 }
