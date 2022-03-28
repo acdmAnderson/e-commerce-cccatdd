@@ -141,4 +141,13 @@ test('Should throw if item not exists', () => {
     expect(output).rejects.toThrow(new Error('Item not found'))
 })
 
+test('Should throw if item quantity is negative', () => {
+    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const input = new PlaceOrderInput('11144477735', [
+        { idItem: 1, quantity: -3 },
+    ])
+    const output = placeOrder.execute(input);
+    expect(output).rejects.toThrow(new Error('Quantity should be positive'))
+})
+
 
