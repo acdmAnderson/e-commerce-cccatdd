@@ -154,7 +154,9 @@ test('Should throw if order has same items', () => {
     const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: 1 },
-        { idItem: 1, quantity: 1 },
+        { idItem: 3, quantity: 1 },
+        { idItem: 2, quantity: 1 },
+        { idItem: 2, quantity: 1 },
     ])
     const output = placeOrder.execute(input);
     expect(output).rejects.toThrow(new Error('Items cannot be duplicated'))
