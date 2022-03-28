@@ -1,11 +1,11 @@
 import Item from '../../../../../src/domain/entities/item';
 import Order from '../../../../../src/domain/entities/order';
-import PostgreSQLConnectionAdapter from '../../../../../src/infra/database/postgres-connection'
 import OrderRepositoryDatabase from '../../../../../src/infra/repositories/database/order-repository-database';
+import PostgresConnection from '../../../../util/postgres-connection';
 
-const connection = new PostgreSQLConnectionAdapter();
+const connection = PostgresConnection.getInstance();
 
-beforeEach(async () => await connection.connect());
+beforeAll(async () => await connection.connect());
 
 test('Should test order repository', async () => {
     const orderRepository = new OrderRepositoryDatabase(connection);
@@ -19,4 +19,4 @@ test('Should test order repository', async () => {
     expect(count).toBe(1);
 })
 
-afterEach(async () => await connection.close());
+afterAll(async () => await connection.close());

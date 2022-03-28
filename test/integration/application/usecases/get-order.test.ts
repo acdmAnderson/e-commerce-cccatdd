@@ -5,8 +5,9 @@ import PostgreSQLConnectionAdapter from '../../../../src/infra/database/postgres
 import CouponRepositoryDatabase from '../../../../src/infra/repositories/database/coupon-repository-database';
 import ItemRepositoryDatabase from '../../../../src/infra/repositories/database/item-repository-database';
 import OrderRepositoryDatabase from '../../../../src/infra/repositories/database/order-repository-database';
+import PostgresConnection from '../../../util/postgres-connection';
 
-const connection = new PostgreSQLConnectionAdapter();
+const connection = PostgresConnection.getInstance();
 
 beforeAll(async () => {
     await connection.connect();

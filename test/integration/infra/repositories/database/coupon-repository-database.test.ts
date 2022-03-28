@@ -1,9 +1,10 @@
 import PostgreSQLConnectionAdapter from '../../../../../src/infra/database/postgres-connection';
 import CouponRepositoryDatabase from '../../../../../src/infra/repositories/database/coupon-repository-database';
+import PostgresConnection from '../../../../util/postgres-connection';
 
-const connection = new PostgreSQLConnectionAdapter();
+const connection = PostgresConnection.getInstance();
 
-beforeEach(async () => await connection.connect());
+beforeAll(async () => await connection.connect());
 
 test('Should test coupon repository', async () => {
     const couponRepository = new CouponRepositoryDatabase(connection);
@@ -11,4 +12,4 @@ test('Should test coupon repository', async () => {
     expect(coupon?.isExpired(new Date('2020-01-01T10:00:00'))).toBeFalsy()
 })
 
-afterEach(async () => await connection.close())
+afterAll(async () => await connection.close())
