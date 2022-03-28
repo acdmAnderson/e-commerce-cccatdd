@@ -26,6 +26,7 @@ export default class Order {
     }
 
     addItem(item: Item, quantity: number): void {
+        if(quantity < 0) throw new Error('Quantity should be positive');
         this.orderItems.push(new OrderItem(item.idItem, item.price, quantity));
         this.freight.addItem(item, quantity);
     }
