@@ -4,6 +4,8 @@ export default class Dimension {
         if (height < 0) throw new Error('Height cannot be negative');
 
         if (width < 0) throw new Error('Width cannot be negative');
+
+        if (depth < 0) throw new Error('Depth cannot be negative');
     }
 
     getVolume(): number {
