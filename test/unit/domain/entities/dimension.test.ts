@@ -13,3 +13,7 @@ test('Should throw if height is negative', () => {
 test('Should throw if width is negative', () => {
     expect(() => new Dimension(20, -15, 10)).toThrow(new Error('Width cannot be negative'))
 })
+
+test('Should throw if depth is negative', () => {
+    expect(() => new Dimension(20, 15, -10)).toThrow(new Error('Depth cannot be negative'))
+})
