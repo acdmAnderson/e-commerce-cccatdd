@@ -4,17 +4,22 @@ import Order from '../../../domain/entities/order';
 import OrderRepository from '../../../domain/repositories/order.repository';
 import PlaceOrderInput from './place-order.input';
 import PlaceOrderOutput from './place-order.output';
+import RepositoryFactory from '../../../domain/factories/repository-factory';
 
 export default class PlaceOrder {
 
-    constructor(
-        private readonly itemRepository: ItemRepository,
-        private readonly couponRepository: CouponRepository,
-        private readonly orderRepository: OrderRepository
-    ) { }
+    private readonly itemRepository: ItemRepository;
+    private readonly couponRepository: CouponRepository;
+    private readonly orderRepository: OrderRepository;
+
+    constructor(repositoryFactory: RepositoryFactory) {
+        this.itemRepository = repositoryFactory.createItemRepository();
+        this.couponRepository = repositoryFactory.createCouponRepository();
+        this.orderRepository = repositoryFactory.createOrderRepository();
+    }
 
     async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
-        if(input.items.some((item, index) => item.idItem === input.items[index + 1]?.idItem)) throw new Error('Items cannot be duplicated');
+        if (input.items.some((item, index) => item.idItem === input.items[index + 1]?.idItem)) throw new Error('Items cannot be duplicated');
         const sequence = await this.orderRepository.count() + 1;
         const order = new Order(input.cpf, input.issueDate, sequence);
         for (const { quantity, idItem } of input.items) {

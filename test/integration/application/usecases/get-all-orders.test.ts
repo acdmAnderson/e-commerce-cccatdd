@@ -1,6 +1,7 @@
 import GetAllOrders from '../../../../src/application/usecases/get-all-orders/get-all-orders';
 import PlaceOrder from '../../../../src/application/usecases/place-order/place-order';
 import PlaceOrderInput from '../../../../src/application/usecases/place-order/place-order.input';
+import DatabaseRepositoryFactory from '../../../../src/infra/factories/database-repository-factory';
 import CouponRepositoryDatabase from '../../../../src/infra/repositories/database/coupon-repository-database';
 import ItemRepositoryDatabase from '../../../../src/infra/repositories/database/item-repository-database';
 import OrderRepositoryDatabase from '../../../../src/infra/repositories/database/order-repository-database';
@@ -26,7 +27,7 @@ const makeOrderInput = (): PlaceOrderInput => {
 }
 
 const makePlaceOrder = (): PlaceOrder => {
-    return new PlaceOrder(new ItemRepositoryDatabase(connection), new CouponRepositoryDatabase(connection), orderRepository);
+    return new PlaceOrder(new DatabaseRepositoryFactory(connection));
 }
 
 test('Should return all orders', async () => {

@@ -7,6 +7,7 @@ import Item from '../../../../src/domain/entities/item';
 import order from '../../../../src/domain/entities/order';
 import Order from '../../../../src/domain/entities/order';
 import Coupon from '../../../../src/domain/entities/coupon';
+import RepositoryFactory from '../../../../src/domain/factories/repository-factory';
 
 const makeFakeItemRepository = (): ItemRepository => {
     class FakeItemRepository implements ItemRepository {
@@ -74,9 +75,28 @@ const makeFakeCouponRepository = (): CouponRepository => {
     return new FakeCouponRepository();
 }
 
+const makeFakeRepositoryFactory = (): RepositoryFactory => {
+    class FakeRepositoryFactory implements RepositoryFactory {
+
+        createCouponRepository(): CouponRepository {
+            return makeFakeCouponRepository();
+        }
+
+        createItemRepository(): ItemRepository {
+            return makeFakeItemRepository();
+        }
+
+        createOrderRepository(): OrderRepository {
+            return makeFakeOrderRepository();
+        }
+
+    }
+
+    return new FakeRepositoryFactory();
+}
 
 test('Should place an order', async () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: 1 },
         { idItem: 2, quantity: 3 },
@@ -87,7 +107,7 @@ test('Should place an order', async () => {
 })
 
 test('Should place an order and your code', async () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const input = new PlaceOrderInput(
         '11144477735',
         [
@@ -104,7 +124,7 @@ test('Should place an order and your code', async () => {
 })
 
 test('Should place an order without coupon', async () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: 1 },
         { idItem: 2, quantity: 3 },
@@ -115,7 +135,7 @@ test('Should place an order without coupon', async () => {
 })
 
 test('Should place an order with nonexistent coupon code', async () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const nonexistentCode = 'nonexistent_code';
     const input = new PlaceOrderInput(
         '11144477735',
@@ -133,7 +153,7 @@ test('Should place an order with nonexistent coupon code', async () => {
 })
 
 test('Should throw if item not exists', () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: -999, quantity: 3 },
     ])
@@ -142,7 +162,7 @@ test('Should throw if item not exists', () => {
 })
 
 test('Should throw if item quantity is negative', () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: -3 },
     ])
@@ -151,7 +171,7 @@ test('Should throw if item quantity is negative', () => {
 })
 
 test('Should throw if order has same items', () => {
-    const placeOrder = new PlaceOrder(makeFakeItemRepository(), makeFakeCouponRepository(), makeFakeOrderRepository());
+    const placeOrder = new PlaceOrder(makeFakeRepositoryFactory());
     const input = new PlaceOrderInput('11144477735', [
         { idItem: 1, quantity: 1 },
         { idItem: 3, quantity: 1 },
