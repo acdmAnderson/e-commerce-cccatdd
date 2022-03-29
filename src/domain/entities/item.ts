@@ -9,7 +9,9 @@ export default class Item {
         readonly price: number,
         readonly dimension?: Dimension,
         readonly weight?: number
-    ) { }
+    ) {
+        if(weight && weight < 0) throw new Error('Weight cannot be negative')
+    }
 
     getDensity(): number {
         if (!this.dimension || !this.weight) return 0;
