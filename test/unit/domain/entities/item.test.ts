@@ -13,3 +13,8 @@ test(`Shouldn’t calculate density if dimension and weight not exists`, () => {
     const density = fakeItem.getDensity();
     expect(density).toBe(0)
 })
+
+test('Should throw if weight is negative', () => {
+    const fakeDimension = new Dimension(100, 30, 10);
+    expect(() => new Item(1, 'any_category', 'any_description', 50, fakeDimension, -3)).toThrow(new Error('Weight cannot be negative'))
+})
