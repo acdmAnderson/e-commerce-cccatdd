@@ -2,6 +2,8 @@ export default class Dimension {
 
     constructor(readonly height: number, readonly width: number, readonly depth: number) {
         if (height < 0) throw new Error('Height cannot be negative');
+
+        if (width < 0) throw new Error('Width cannot be negative');
     }
 
     getVolume(): number {
