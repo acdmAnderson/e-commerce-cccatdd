@@ -5,6 +5,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "test": "rimraf ./dist && tsc && jest --silent --noStackTrace --runInBand ./dist",
+    "test:verb": "rimraf ./dist && tsc && jest --runInBand ./dist",
     "test:cov": "npm run test -- --coverage"
   },
   "keywords": [],
@@ -16,7 +17,7 @@
     "typescript": "^4.5.5"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "@types/pg": "^8.6.5"
   }
 }
