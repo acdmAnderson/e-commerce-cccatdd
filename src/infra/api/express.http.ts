@@ -1,13 +1,12 @@
 import Http from './http';
 import express, { Application, Request, Response } from 'express';
-import bodyParser from 'body-parser'
 
 export default class ExpressHttp implements Http {
     readonly app: Application;
 
     constructor() {
         this.app = express();
-        this.app.use(bodyParser.json({}))
+        this.app.use(express.json())
     }
 
     async route(method: 'post' | 'get' | 'put' | 'delete' | 'patch', url: string, callback: any): Promise<any> {
@@ -23,7 +22,7 @@ export default class ExpressHttp implements Http {
     }
 
     async listen(port: number): Promise<void> {
-        this.app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+        this.app.listen(port, () => console.log(`Server running at http://locaslhost:${port}`));
     }
 
 }
