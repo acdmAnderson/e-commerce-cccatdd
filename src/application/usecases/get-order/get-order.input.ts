@@ -1,3 +1,3 @@
 export default class GetOrderInput {
-    constructor(readonly code: string) {}
+  constructor (readonly code: string) {}
 }

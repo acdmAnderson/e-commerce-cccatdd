@@ -1,4 +1,4 @@
-import Order from '../entities/order';
+import Order from '../entities/order'
 
 export default interface OrderRepository {
 

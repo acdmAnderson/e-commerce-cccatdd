@@ -1,4 +1,3 @@
 export default class FreightSimulateOutput {
-
-    constructor(readonly value: number) { }
+  constructor (readonly value: number) { }
 }
