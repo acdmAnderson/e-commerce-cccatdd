@@ -7,7 +7,7 @@
     "test": "rimraf ./dist && tsc && jest --silent --noStackTrace --runInBand ./dist",
     "test:verb": "rimraf ./dist && tsc && jest --runInBand ./dist",
     "test:cov": "npm run test -- --coverage",
-    "start": "rimraf ./dist && tsc && node ./dist/src/main.js"
+    "start": "ts-node-dev --respawn ./src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
-    "@types/pg": "^8.6.5"
+    "@types/pg": "^8.6.5",
+    "ts-node-dev": "^1.1.8"
   }
 }
