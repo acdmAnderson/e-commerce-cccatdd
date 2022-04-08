@@ -8,7 +8,8 @@
     "test:verb": "rimraf ./dist && tsc && jest --runInBand ./dist",
     "test:cov": "npm run test -- --coverage",
     "start": "ts-node-dev --respawn ./src/main.ts",
-    "lint": "eslint --fix --ext .js,.ts ."
+    "lint": "eslint --fix --ext .js,.ts .",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -27,12 +28,15 @@
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
     "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
-    "prettier": "^2.6.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "ts-node-dev": "^1.1.8"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --cache --fix"
   }
 }
