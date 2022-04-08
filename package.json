@@ -4,8 +4,8 @@
   "description": "",
   "main": "./dist/main.js",
   "scripts": {
-    "test": "rimraf ./dist && tsc && jest --silent --noStackTrace --runInBand ./dist",
-    "test:verb": "rimraf ./dist && tsc && jest --runInBand ./dist",
+    "test": "jest --silent --noStackTrace --runInBand ./test",
+    "test:verb": "jest --runInBand ./test",
     "test:cov": "npm run test -- --coverage",
     "start": "ts-node-dev --respawn ./src/main.ts",
     "lint": "eslint --fix --ext .js,.ts .",
@@ -34,6 +34,7 @@
     "eslint-plugin-promise": "^5.2.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
+    "ts-jest": "^27.1.4",
     "ts-node-dev": "^1.1.8"
   },
   "lint-staged": {
