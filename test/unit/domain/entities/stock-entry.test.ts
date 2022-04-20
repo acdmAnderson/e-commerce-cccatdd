@@ -7,3 +7,11 @@ test('Should create a stock entry', () => {
   expect(stockEntry.quantity).toBe(6)
   expect(stockEntry.date).toEqual(new Date('2020-01-01T10:00:00'))
 })
+
+test('Should create a stock out', () => {
+  const stockEntry = new StockEntry(1, 'out', 2, new Date('2020-01-01T10:00:00'))
+  expect(stockEntry.idItem).toBe(1)
+  expect(stockEntry.operation).toBe('out')
+  expect(stockEntry.quantity).toBe(2)
+  expect(stockEntry.date).toEqual(new Date('2020-01-01T10:00:00'))
+})
