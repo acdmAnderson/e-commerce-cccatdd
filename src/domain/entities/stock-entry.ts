@@ -4,5 +4,7 @@ export default class StockEntry {
         readonly operation: string,
         readonly quantity: number,
         readonly date = new Date()
-  ) {}
+  ) {
+    if (!['in', 'out'].some((operation) => this.operation === operation)) throw new Error('Operation not exists')
+  }
 }
