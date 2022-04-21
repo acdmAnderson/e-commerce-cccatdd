@@ -44,3 +44,10 @@ create table ccca.order_item (
 	quantity integer,
 	primary key (id_order, id_item)
 );
+
+create table ccca.stock_entry (
+	id_item integer,
+	operation text,
+	quantity integer,
+	created_at timestamp
+);

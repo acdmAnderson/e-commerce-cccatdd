@@ -7,6 +7,7 @@ import Item from '../../../../src/domain/entities/item'
 import Order from '../../../../src/domain/entities/order'
 import Coupon from '../../../../src/domain/entities/coupon'
 import RepositoryFactory from '../../../../src/domain/factories/repository-factory'
+import StockEntryRepository from '../../../../src/domain/repositories/stock-entry.repository'
 
 const makeFakeItemRepository = (): ItemRepository => {
   class FakeItemRepository implements ItemRepository {
@@ -77,6 +78,10 @@ const makeFakeCouponRepository = (): CouponRepository => {
 
 const makeFakeRepositoryFactory = (): RepositoryFactory => {
   class FakeRepositoryFactory implements RepositoryFactory {
+    createStockEntryRepository (): StockEntryRepository {
+      throw new Error('Method not implemented.')
+    }
+
     createCouponRepository (): CouponRepository {
       return makeFakeCouponRepository()
     }
