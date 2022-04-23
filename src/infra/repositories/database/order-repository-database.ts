@@ -11,6 +11,7 @@ export default class OrderRepositoryDatabase implements OrderRepository {
   async clean (): Promise<void> {
     await this.connection.query('DELETE FROM ccca.order;', [])
     await this.connection.query('DELETE FROM ccca.order_item;', [])
+    await this.connection.query('DELETE FROM ccca.stock_entry;', [])
   }
 
   async save (order: Order): Promise<void> {

@@ -5,16 +5,20 @@ import OrderRepository from '../../../domain/repositories/order.repository'
 import PlaceOrderInput from './place-order.input'
 import PlaceOrderOutput from './place-order.output'
 import RepositoryFactory from '../../../domain/factories/repository-factory'
+import StockEntryRepository from '../../../domain/repositories/stock-entry.repository'
+import StockEntry from '../../../domain/entities/stock-entry'
 
 export default class PlaceOrder {
     private readonly itemRepository: ItemRepository;
     private readonly couponRepository: CouponRepository;
     private readonly orderRepository: OrderRepository;
+    private readonly stockEntryRepository: StockEntryRepository;
 
     constructor (repositoryFactory: RepositoryFactory) {
       this.itemRepository = repositoryFactory.createItemRepository()
       this.couponRepository = repositoryFactory.createCouponRepository()
       this.orderRepository = repositoryFactory.createOrderRepository()
+      this.stockEntryRepository = repositoryFactory.createStockEntryRepository()
     }
 
     async execute (input: PlaceOrderInput): Promise<PlaceOrderOutput> {
@@ -31,6 +35,9 @@ export default class PlaceOrder {
         if (coupon) order.addCoupon(coupon)
       }
       await this.orderRepository.save(order)
+      for (const { quantity, idItem } of input.items) {
+        await this.stockEntryRepository.save(new StockEntry(idItem, 'out', quantity))
+      }
       return new PlaceOrderOutput(order.getCode(), order.getTotal())
     }
 }

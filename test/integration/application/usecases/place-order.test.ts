@@ -8,6 +8,7 @@ import Order from '../../../../src/domain/entities/order'
 import Coupon from '../../../../src/domain/entities/coupon'
 import RepositoryFactory from '../../../../src/domain/factories/repository-factory'
 import StockEntryRepository from '../../../../src/domain/repositories/stock-entry.repository'
+import StockEntry from '../../../../src/domain/entities/stock-entry'
 
 const makeFakeItemRepository = (): ItemRepository => {
   class FakeItemRepository implements ItemRepository {
@@ -76,10 +77,32 @@ const makeFakeCouponRepository = (): CouponRepository => {
   return new FakeCouponRepository()
 }
 
+const makeFakeStockEntryRepository = (): StockEntryRepository => {
+  class FakeStockEntryRepository implements StockEntryRepository {
+    private stockEntries: StockEntry[]
+    constructor () {
+      this.stockEntries = []
+    }
+
+    async save (stockEntry: StockEntry): Promise<void> {
+      this.stockEntries.push(stockEntry)
+    }
+
+    async findAll (id: number): Promise<StockEntry[]> {
+      return this.stockEntries.filter((stock) => stock.idItem === id)
+    }
+
+    async clean (): Promise<void> {
+      this.stockEntries = []
+    }
+  }
+  return new FakeStockEntryRepository()
+}
+
 const makeFakeRepositoryFactory = (): RepositoryFactory => {
   class FakeRepositoryFactory implements RepositoryFactory {
     createStockEntryRepository (): StockEntryRepository {
-      throw new Error('Method not implemented.')
+      return makeFakeStockEntryRepository()
     }
 
     createCouponRepository (): CouponRepository {
