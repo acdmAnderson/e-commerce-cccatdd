@@ -10,7 +10,7 @@ test('Should place an order', async () => {
     { idItem: 3, quantity: 1 }
   ], new Date('2019-01-01T10:00:00'), 'VALE20')
   const output = await placeOrder.execute(input)
-  expect(output.total).toBe(200)
+  expect(output.total).toBe(210)
 })
 
 test('Should place an order and your code', async () => {
@@ -38,7 +38,7 @@ test('Should place an order without coupon', async () => {
     { idItem: 3, quantity: 1 }
   ])
   const output = await placeOrder.execute(input)
-  expect(output.total).toBe(250)
+  expect(output.total).toBe(260)
 })
 
 test('Should place an order with nonexistent coupon code', async () => {
@@ -55,7 +55,7 @@ test('Should place an order with nonexistent coupon code', async () => {
     nonexistentCode
   )
   const output = await placeOrder.execute(input)
-  expect(output.total).toBe(250)
+  expect(output.total).toBe(260)
   expect(output.code).toBe('202100000001')
 })
 
