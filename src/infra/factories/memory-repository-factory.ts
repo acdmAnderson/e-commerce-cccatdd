@@ -4,6 +4,9 @@ import ItemRepository from '../../domain/repositories/item.repository'
 import OrderRepository from '../../domain/repositories/order.repository'
 import StockEntryRepository from '../../domain/repositories/stock-entry.repository'
 import CouponRepositoryMemory from '../repositories/memory/coupon-repository-memory'
+import ItemRepositoryMemory from '../repositories/memory/item-repository-memory'
+import OrderRepositoryMemory from '../repositories/memory/order-repository-memory'
+import StockEntryRepositoryMemory from '../repositories/memory/stock-entry-repository-memory'
 
 export default class MemoryRepositoryFactory implements RepositoryFactory {
   createCouponRepository (): CouponRepository {
@@ -11,14 +14,14 @@ export default class MemoryRepositoryFactory implements RepositoryFactory {
   }
 
   createItemRepository (): ItemRepository {
-    throw new Error('Method not implemented.')
+    return new ItemRepositoryMemory()
   }
 
   createOrderRepository (): OrderRepository {
-    throw new Error('Method not implemented.')
+    return new OrderRepositoryMemory()
   }
 
   createStockEntryRepository (): StockEntryRepository {
-    throw new Error('Method not implemented.')
+    return new StockEntryRepositoryMemory()
   }
 }
