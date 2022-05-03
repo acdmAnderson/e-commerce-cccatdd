@@ -20,7 +20,7 @@ test('Should create an order', async () => {
     { idItem: 2, quantity: 1 },
     { idItem: 3, quantity: 3 }
   ], new Date(), 'VALE20')
-  const { data } = await axios.post('http://localhost:9001/orders', payload)
+  const { data } = await axios.post('http://localhost:9002/orders', payload)
   expect(data.total).toBe(5152)
 })
 
@@ -32,7 +32,7 @@ test('Should get an order', async () => {
     { idItem: 3, quantity: 3 }
   ], new Date('2021-01-01T10:00:00'))
   await placeOrder.execute(input)
-  const { data } = await axios.get('http://localhost:9001/orders/202100000001')
+  const { data } = await axios.get('http://localhost:9002/orders/202100000001')
   expect(data.code).toBe('202100000001')
   expect(data.total).toBe(6370)
 })
